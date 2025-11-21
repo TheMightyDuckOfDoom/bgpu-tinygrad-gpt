@@ -90,7 +90,7 @@ class GPT:
         assert (
             t <= self.block_size
         ), f"cannot forward sequence of length {t}, block size only {self.block_size}"
-        pos = Tensor.arange(0, t, dtype=dtypes.long, device=device)
+        pos = Tensor.arange(0, t, dtype=dtypes.int32, device=device)
 
         tok_embed = self.tok_embed(idx)
         pos_embed = self.pos_embed(pos)

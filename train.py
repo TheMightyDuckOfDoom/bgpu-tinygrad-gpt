@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import time
 
 import matplotlib.pyplot as plt
@@ -31,19 +32,19 @@ def get_batch():
     ]
     x = [np.array(data[i : i + block_size]) for i in ix]
     y = [np.array(data[i + 1 : i + 1 + block_size]) for i in ix]
-    return Tensor(x, dtype=dtypes.int64, requires_grad=False), Tensor(
-        y, dtype=dtypes.int64
+    return Tensor(x, dtype=dtypes.int32, requires_grad=False), Tensor(
+        y, dtype=dtypes.int32
     )
 
 
 model = GPT(
     vocab_size=vocab_size,
     block_size=block_size,
-    n_layers=8,
-    n_heads=8,
-    embed_size=512,
-    hidden_size=512 * 2,
-    bias=False,
+    n_layers=4,
+    n_heads=4,
+    embed_size=64,
+    hidden_size=64 * 4,
+    bias=True,
 )
 print(f"model has {sum(p.numel() for p in get_parameters(model)):,} parameters")
 optim = AdamW(params=get_parameters(model), lr=4e-4, b1=0.9, b2=0.95, weight_decay=0.1)
